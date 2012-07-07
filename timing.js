@@ -34,6 +34,8 @@ Timing.Timer = Timer
  */
 
 function Timing (options) {
+  if (!(this instanceof Timing)) return new Timing(options)
+
   options || (options = {})
 
   if (options.debug) debug = console.log
@@ -87,6 +89,7 @@ function Timer (label) {
   this.start = Time.now()
   this.end = null
   this.duration = null
+  this.resolution = (Time.nowStruct) ? 'us' : 'ms'
 
   this.emit('start', this.start)
 }
@@ -98,5 +101,5 @@ Timer.prototype.timeEnd = function() {
   this.duration = this.end - this.start
   this.emit('end', this.duration)
 
-  debug('%s: %dms', this.label, this.duration)
+  debug('%s: %d%s', this.label, this.duration, this.resolution)
 }

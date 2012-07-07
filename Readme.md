@@ -13,20 +13,21 @@ Making timers more manageable.
 ## Usage
 
     var timing = require('timing')()
-	timing.time('hammer')
-	
-	setTimeout(function () {
-	  timing.timeEnd('hammer')
-	}, 1000)
+    timing.time('hammer')
+
+    setTimeout(function () {
+      timing.timeEnd('hammer')
+    }, 500)
 
 Timing also supports [Microtime](https://github.com/wadey/node-microtime).    
 
     var timing = require('timing')({ microtime: true, debug: true })
-	timing.time('hammer')
-	
-	setTimeout(function () {
-	  timing.timeEnd('hammer')
-	}, 1000)
+    timing.time('microtimer')
+
+    setTimeout(function () {
+      var timer = timing.timeEnd('microtimer')
+      console.log('%s: %d%s', timer.label, timer.duration, timer.resolution)
+    }, 500)
 
 ## Options
 
