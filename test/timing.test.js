@@ -29,3 +29,18 @@ test('timing timer', function (t) {
     t.end()
   }, timeout)
 })
+
+test('timing with microtime', function (t) {
+  t.plan(1)
+
+  var timing = new Timing({ microtime: true, debug: true })
+    , timeout = 500
+
+  timing.time('hammer')
+
+  setTimeout(function () {
+    var timer = timing.timeEnd('hammer')
+    t.equal(Math.round(timer.duration/10000), Math.round(timeout*1000/10000), 'timer duration')
+    t.end()
+  }, timeout)
+})
