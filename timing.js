@@ -36,7 +36,7 @@ Timing.Timer = Timer
 function Timing (options) {
   options || (options = {})
 
-  if (options.debug) debug = console
+  if (options.debug) debug = console.log
   if (options.microtime) Time = require('microtime')
 
   this.options = options
@@ -62,7 +62,7 @@ Timing.prototype.timeEnd = function(label) {
   })
   timer.timeEnd()
   return timer
- }
+}
 
 Timing.prototype.clear = function (label) {
   if (this.timers[label]) {
