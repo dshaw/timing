@@ -35,6 +35,7 @@ Timing.Timer = Timer
 
 function Timing (options) {
   if (!(this instanceof Timing)) return new Timing(options)
+  EventEmitter.call(this)
 
   options || (options = {})
 
@@ -49,10 +50,10 @@ util.inherits(Timing, EventEmitter)
 
 Timing.prototype.time = function (label, options) {
   options || (options = {})
-
-  if (this.timers[label] && !options.force) return this.timers[label]
-
-  this.timers[label] = new Timer(label)
+  if (!this.timers[label] || options.force) {
+    this.timers[label] = new Timer(label)
+  }
+  return this.timers[label]
 }
 
 Timing.prototype.timeEnd = function(label) {
@@ -84,6 +85,7 @@ Timing.prototype.clear = function (label) {
 
 function Timer (label) {
   if (!label) throw new Error('Timer needs a label: ' + label)
+  EventEmitter.call(this)
 
   this.label = label
   this.start = Time.now()
